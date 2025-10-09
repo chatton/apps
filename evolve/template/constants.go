@@ -10,7 +10,7 @@ const (
 
 const (
 	EvABCIPackage = "github.com/evstack/ev-abci"
-	EvABCIVersion = "v0.0.0-20251009121358-9a6ce780d086"
+	EvABCIVersion = "v0.0.0-20251009122314-221c53cd3ea1"
 
 	EvNodePackage = "github.com/evstack/ev-node"
 	EvNodeVersion = "v1.0.0-beta.5"
