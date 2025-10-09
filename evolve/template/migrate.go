@@ -33,11 +33,17 @@ func migrateFromCometModify(appPath string) genny.RunFn {
 			return err
 		}
 
-		// end block for migrationmngr
-		template := `migrationmngrtypes.ModuleName,
+		// add migrationmngr to ModuleBasics for type registration
+		moduleBasicsTemplate := `migrationmngrmodule.AppModule{},
 %[1]v`
-		replacement := fmt.Sprintf(template, module.PlaceholderSgAppEndBlockers)
-		content = replacer.Replace(content, module.PlaceholderSgAppEndBlockers, replacement)
+		moduleBasicsReplacement := fmt.Sprintf(moduleBasicsTemplate, module.PlaceholderSgAppModuleBasic)
+		content = replacer.Replace(content, module.PlaceholderSgAppModuleBasic, moduleBasicsReplacement)
+
+		// end block for migrationmngr
+		endBlockerTemplate := `migrationmngrtypes.ModuleName,
+%[1]v`
+		endBlockerReplacement := fmt.Sprintf(endBlockerTemplate, module.PlaceholderSgAppEndBlockers)
+		content = replacer.Replace(content, module.PlaceholderSgAppEndBlockers, endBlockerReplacement)
 
 		// replace staking blank import
 		content = strings.Replace(content, "github.com/cosmos/cosmos-sdk/x/staking", "github.com/evstack/ev-abci/modules/staking", 1)
